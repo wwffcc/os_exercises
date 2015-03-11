@@ -58,8 +58,8 @@ lab1中printfmt函数用到了可变参，请参考写一个小的linux应用程
 - [x]  
 
 >
->#include <stdio.h>  
->#include <stdarg.h>  
+\#include <stdio.h>  
+\#include <stdarg.h>  
   
 void varprint(int foo,...){  
     va_list argp;  
@@ -76,7 +76,7 @@ void varprint(int foo,...){
     va_end(argp);  
 }   
   
-int main(){
+int main(){  
     varprint(5,"This","is","a","varable","parameter");  
     return 0;  
 }
