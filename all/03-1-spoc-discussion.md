@@ -312,6 +312,7 @@ MMU的工作机理？
 - [x]  
 
 >  http://en.wikipedia.org/wiki/Memory_management_unit
+内存管理单元通常借助一种叫做转译旁观缓冲器（Translation Lookaside Buffer，缩写为TLB）的相联高速缓存（associative cache）来将虚拟页号转换为物理页号。
 
 L1和L2高速缓存有什么区别？
 
@@ -322,13 +323,15 @@ L1和L2高速缓存有什么区别？
 
 >  http://en.wikipedia.org/wiki/CPU_cache
 >  CPU cache
+L1，L2到L3在CPU中依次为容量增多，但造价降低。
+每个核各有自己的L1，L2缓存，L3缓存则被所有的核共享。
 
 ### 5.2 地址空间和地址生成
 编译、链接和加载的过程了解？
 
 - [x]  
 
->  
+>  编译先生成可重定向目标文件，链接后截距
 
 动态链接如何使用？
 
