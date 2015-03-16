@@ -222,6 +222,38 @@ class MemoryManager
 };  
   
 \#endif  
+  
+cpp文件bestMatching.cpp给出了一些测试样例：  
+\#include <iostream>  
+\#include "memoryManager.h"  
+using namespace std;  
+int main()  
+{  
+	MemoryManager mgr;  
+	int* A=(int*)mgr.memAlloc(100);  
+	mgr.print();  
+	char* B=(char*)mgr.memAlloc(2);  
+	mgr.print();  
+	  
+	double* C=(double*)mgr.memAlloc(sizeof(double)*50);  
+	mgr.print();  
+  	
+	int* D=(int*)mgr.memAlloc(sizeof(int)*50);  
+	mgr.print();  
+	  
+	int* E=(int*)mgr.memAlloc(600);  
+	cout<<E<<endl;  
+	mgr.print();  
+	  
+	mgr.memFree(A);  
+	mgr.print();  
+	mgr.memFree(C);  
+	mgr.print();  
+	mgr.memFree(B);  
+	mgr.print();  
+	return 0;  
+}  
+
 
 
 ## 扩展思考题
