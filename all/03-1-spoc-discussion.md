@@ -38,7 +38,7 @@ buddy system：优势：比较好地折中了合并和分配块的位置碎片�
 ---
 >2012011392做的是0：最优匹配。方法如下：  
 >维护一个大的字节数组作为内存，然后还维护两个链表，分别是空闲链表和已申请的空间链表，分别记录内存的申请和空闲情况，避免在内存块上置标志位，使得合并也容易些。代码见下：
-主体：memoryManager.h
+主体：memoryManager.h  
 \#ifndef MEMORYMANAGER_H  
 \#define MEMORYMANAGER_H  
   
@@ -99,7 +99,7 @@ class List
 	Node* insert(Node* p,const Block x)				//insert before p  
 	{  
 		 size++;  
-    return (p->prev=p->prev->next=new Node(x,p->prev,p));  
+                 return (p->prev=p->prev->next=new Node(x,p->prev,p));  
 	}  
 	  
 	Node* insert(const Block x)							//maintain the sorted List  
