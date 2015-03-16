@@ -35,7 +35,194 @@ buddy system：优势：比较好地折中了合并和分配块的位置碎片�
 
 请参考ucore lab2代码，采用`struct pmm_manager` 根据你的`学号 mod 4`的结果值，选择四种（0:最优匹配，1:最差匹配，2:最先匹配，3:buddy systemm）分配算法中的一种或多种，在应用程序层面(可以 用python,ruby,C++，C，LISP等高语言)来实现，给出你的设思路，并给出测试用例。 (spoc)
 
---- 
+---
+>2012011392做的是0：最优匹配。方法如下：  
+>维护一个大的字节数组作为内存，然后还维护两个链表，分别是空闲链表和已申请的空间链表，分别记录内存的申请和空闲情况，避免在内存块上置标志位，使得合并也容易些。代码见下：
+主体：memoryManager.h
+\#ifndef MEMORYMANAGER_H  
+\#define MEMORYMANAGER_H  
+  
+\#define N 1000  
+typedef unsigned char uint8;  
+  
+struct Block  
+{  
+	int address;  
+	int size;  
+	Block(int a,int s)  
+	:address(a),size(s){}  
+};  
+  
+struct Node  
+{  
+	Block block;  
+	Node* prev;  
+	Node* next;  
+	Node(const Block& b=Block(0,0),Node* p=NULL,Node* n=NULL)  
+		:block(b),prev(p),next(n){}  
+};  
+  
+class List  
+{  
+ private:  
+	Node* head;  
+	Node* tail;  
+	int size;  
+ public:  
+	List()  
+	{  
+		size=0;  
+		head=new Node();  
+		tail=new Node();  
+		head->next=tail;  
+		tail->prev=head;  
+	}  
+	  
+	~List()  
+	{  
+		while(!empty())  
+			erase(begin());  
+		delete head;  
+		delete tail;  
+	}  
+	  
+	Node* begin() const  
+	{  
+		return head->next;  
+	}  
+	  
+	Node* end() const  
+	{  
+		return tail;  
+	}  
+	  
+	Node* insert(Node* p,const Block x)				//insert before p  
+	{  
+		 size++;  
+    return (p->prev=p->prev->next=new Node(x,p->prev,p));  
+	}  
+	  
+	Node* insert(const Block x)							//maintain the sorted List  
+	{  
+		for(Node* p=begin();p!=tail;p=p->next)  
+		{  
+			if(x.size <= p->block.size)  
+			{  
+				return insert(p,x);  
+			}  
+		}  
+		return insert(end(),x);  
+	}  
+	  
+	Node* erase(Node* p)  
+	{  
+		p->prev->next=p->next;  
+		p->next->prev=p->prev;  
+		Node* q=p->next;  
+		size--;  
+		delete p;  
+		return q;  
+	}  
+	
+	inline bool empty() const  
+	{  
+		return size==0;  
+	}  
+};  
+  
+class MemoryManager  
+{  
+ public:  
+	MemoryManager()  
+	{  
+		memset(memory,0,sizeof(uint8)*N);  
+		freeList=new List;  
+		freeList->insert(Block(0,N));  
+		(freeList->end())->block.address=N;			//the tail of the list, size=0  
+		busyList=new List;  
+	}  
+	~MemoryManager()  
+	{  
+		delete freeList;  
+		delete busyList;  
+	}  
+	void* memAlloc(int size)  
+	{  
+		for(Node* p=freeList->begin();p!=freeList->end();p=p->next)  
+		{  
+			if(p->block.size >= size)  
+			{  
+				Block b=p->block;  
+				busyList->insert(Block(b.address,size));  
+				uint8* rp=memory+b.address;  
+				b.address+=size;  
+				b.size=p->block.address+p->block.size-b.address;  
+				freeList->erase(p);  
+				freeList->insert(b);  
+				return (void*)rp;  
+			}  
+		}  
+		return NULL;  
+	}  
+	bool memFree(void* bp)  
+	{  
+		int addr=(uint8*)bp - memory;  
+		  
+		for(Node* p=busyList->begin();p!=busyList->end();p=p->next)  
+		{  
+			if(p->block.address == addr)  
+			{  
+				Block b=p->block;				//merge  
+				for(Node* q=freeList->begin();q!=freeList->end();q=q->next)  
+				{  
+					if(q->block.address+q->block.size == b.address)  
+					{  
+						b.address=q->block.address;  
+						b.size=p->block.address+p->block.size-b.address;  
+						freeList->erase(q);  
+						break;  
+					}  
+				}  
+				for(Node* r=freeList->begin();r!=freeList->end();r=r->next)  
+				{  
+					if(p->block.address+p->block.size == r->block.address)  
+					{  
+						b.size=r->block.address + r->block.size-b.address;  
+						freeList->erase(r);  
+						break;  
+					}  
+				}  
+				busyList->erase(p);  
+				freeList->insert(b);  
+				return true;  
+			}  
+		}  
+		return false;  
+	}  
+	  
+	void print()  
+	{  
+		std::cout<<"\nfreeList\n";  
+		for(Node* p=freeList->begin();p!=freeList->end();p=p->next)  
+		{  
+			std::cout<<"("<<p->block.address<<","<<(p->block.address+p->block.size)<<") ";  
+		}  
+		std::cout<<"\nbusyList:\n";  
+		for(Node* p=busyList->begin();p!=busyList->end();p=p->next)  
+		{  
+			std::cout<<"("<<p->block.address<<","<<(p->block.address+p->block.size)<<") ";  
+		}  
+		std::cout<<"\n-------------";  
+	}  
+	
+ private:  
+	uint8 memory[N];  
+	List* freeList;  
+	List* busyList;  
+};  
+  
+\#endif  
+
 
 ## 扩展思考题
 
