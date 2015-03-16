@@ -322,7 +322,7 @@ L1和L2高速缓存有什么区别？
 >  Where exactly L1, L2 and L3 Caches located in computer?
 
 >  http://en.wikipedia.org/wiki/CPU_cache
->  CPU cache
+>  CPU cache  
 L1，L2到L3在CPU中依次为容量增多，但造价降低。
 每个核各有自己的L1，L2缓存，L3缓存则被所有的核共享。
 
@@ -331,7 +331,7 @@ L1，L2到L3在CPU中依次为容量增多，但造价降低。
 
 - [x]  
 
->  编译先生成可重定向目标文件，链接后截距
+>  编译先生成可重定向目标文件，链接后解决地址之间引用的问题，加载后由操作系统调度生成绝对地址。
 
 动态链接如何使用？
 
