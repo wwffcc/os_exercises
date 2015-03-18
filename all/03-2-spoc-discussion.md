@@ -83,6 +83,7 @@ Virtual Address 7268:
 ```
 
 >
+
 ```
 Virtual Address 6c74:    
   --> pde index:0x1b  pte contents:(valid 1, pfn 0x20)  
@@ -133,7 +134,7 @@ Virtual Address 748b:
     --> pte index:0x4  pte contents:(valid 0, pfn 0x7f)  
       --> Fault (page directory entry not valid  
   
-```
+
   
 
 
