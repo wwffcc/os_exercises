@@ -189,9 +189,7 @@ int main()
 	int pdeCon,pteCon,con;
 	int pdeInd,pteInd,pAddr;
 	int valid,pfn;
-
 	fp=fopen("Vaddress.txt","r");
-
 	fpx=fopen("answer.txt","w");
 	while(true)
 	{
@@ -199,37 +197,29 @@ int main()
 			break;
 		fscanf(fp,"%s",ch);
 		fscanf(fp,"%x",&vAddr);
-		
 		pdeInd=(vAddr&0x7c00)>>10;
 		pteInd=(vAddr&0x3e0)>>5;
 		pAddr=(vAddr&0x1f);
-		
 		fprintf(fpx,"Virtual Address %x:\n  ",vAddr);
 		fprintf(fpx,"--> pde index:0x%x  pte contents:",pdeInd);
-		
 		pdeCon=pdeContents(pdeInd);
 		valid=(pdeCon>>7);
 		pfn=(pdeCon&0x7f);
 		fprintf(fpx,"(valid %d, pfn 0x%x)\n    ",valid,pfn);
 		if(faultPage(fpx,valid))
 			continue;
-		
 		fprintf(fpx,"--> pte index:0x%x  pte contents:",pteInd);
-		
 		pteInd+=(pfn<<5);
-		
 		pteCon=pteContents(pteInd);
 		valid=(pteCon>>7);
 		pfn=(pteCon&0x7f);
 		fprintf(fpx,"(valid %d, pfn 0x%x)\n      ",valid,pfn);
 		if(faultPage(fpx,valid))
 			continue;
-		
 		pAddr+=(pfn<<5);
 		fprintf(fpx,"--> Translates to Physical Address 0x%x ",pAddr);
 		fprintf(fpx,"--> Value: %x\n\n",contents(pAddr));	
 	}
-	
 	fclose(fp);
 	fclose(fpx);
 	return 0;
