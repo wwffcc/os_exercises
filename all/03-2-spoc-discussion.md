@@ -133,12 +133,118 @@ Virtual Address 748b:
   --> pde index:0x1d  pte contents:(valid 1, pfn 0x0)  
     --> pte index:0x4  pte contents:(valid 0, pfn 0x7f)  
       --> Fault (page directory entry not valid  
-  
-
-  
-
 
 （3）请基于你对原理课二级页表的理解，并参考Lab2建页表的过程，设计一个应用程序（可基于python, ruby, C, C++，LISP等）可模拟实现(2)题中描述的抽象OS，可正确完成二级页表转换。
+
+>page.cpp  
+```
+\#include \<stdio.h\>
+\#include \<stdlib.h\>
+\#include \<string.h\>
+
+\#define PDBR 0x220
+
+int pm[1<<12];
+
+int* pde=pm+PDBR;
+
+int pdeContents(int index)
+{
+	return pde[index];
+}
+
+int pteContents(int index)
+{
+	return pm[index];
+}
+
+int contents(int index)
+{
+	return pm[index];
+}
+
+bool faultPage(FILE* fp,int v)
+{
+	if(!v)
+	{
+		fprintf(fp,"--> Fault (page directory entry not valid\n\n");
+		return true;
+	}
+	return false;
+	
+}
+
+int main()
+{
+	FILE* fp=fopen("data.txt","r"), *fpx;
+	char ch[10];
+	int d;
+	int* pmp=pm;
+	int s=0;
+	while(true)
+	{
+		if(fscanf(fp,"%s",ch)==EOF)
+			break;
+		fscanf(fp,"%d:",&d);
+		for(int i=0;i<32;i++)
+		{
+			fscanf(fp,"%x",pmp+s);
+			s++;
+		}
+	}
+	fclose(fp);
+	
+	int vAddr;
+	int pdeCon,pteCon,con;
+	int pdeInd,pteInd,pAddr;
+	int valid,pfn;
+	
+	
+	fp=fopen("Vaddress.txt","r");
+	
+	fpx=fopen("answer.txt","w");
+	while(true)
+	{
+		if(fscanf(fp,"%s",ch)==EOF)
+			break;
+		fscanf(fp,"%s",ch);
+		fscanf(fp,"%x",&vAddr);
+		
+		pdeInd=(vAddr&0x7c00)>>10;
+		pteInd=(vAddr&0x3e0)>>5;
+		pAddr=(vAddr&0x1f);
+		
+		fprintf(fpx,"Virtual Address %x:\n  ",vAddr);
+		fprintf(fpx,"--> pde index:0x%x  pte contents:",pdeInd);
+		
+		pdeCon=pdeContents(pdeInd);
+		valid=(pdeCon>>7);
+		pfn=(pdeCon&0x7f);
+		fprintf(fpx,"(valid %d, pfn 0x%x)\n    ",valid,pfn);
+		if(faultPage(fpx,valid))
+			continue;
+		
+		fprintf(fpx,"--> pte index:0x%x  pte contents:",pteInd);
+		
+		pteInd+=(pfn<<5);
+		
+		pteCon=pteContents(pteInd);
+		valid=(pteCon>>7);
+		pfn=(pteCon&0x7f);
+		fprintf(fpx,"(valid %d, pfn 0x%x)\n      ",valid,pfn);
+		if(faultPage(fpx,valid))
+			continue;
+		
+		pAddr+=(pfn<<5);
+		fprintf(fpx,"--> Translates to Physical Address 0x%x ",pAddr);
+		fprintf(fpx,"--> Value: %x\n\n",contents(pAddr));	
+	}
+	
+	fclose(fp);
+	fclose(fpx);
+	return 0;
+}
+
 
 
 （4）假设你有一台支持[反置页表](http://en.wikipedia.org/wiki/Page_table#Inverted_page_table)的机器，请问你如何设计操作系统支持这种类型计算机？请给出设计方案。
