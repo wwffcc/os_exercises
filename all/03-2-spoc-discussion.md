@@ -133,7 +133,7 @@ Virtual Address 748b:
   --> pde index:0x1d  pte contents:(valid 1, pfn 0x0)  
     --> pte index:0x4  pte contents:(valid 0, pfn 0x7f)  
       --> Fault (page directory entry not valid  
-  
+```  
 
 （3）请基于你对原理课二级页表的理解，并参考Lab2建页表的过程，设计一个应用程序（可基于python, ruby, C, C++，LISP等）可模拟实现(2)题中描述的抽象OS，可正确完成二级页表转换。
 
