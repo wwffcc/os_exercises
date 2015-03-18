@@ -31,7 +31,7 @@ NOTICE
 
 - [x]  
 
-> 500=0.9\*150+0.1\*x
+> 500=0.9\*150+0.1\*x  
 由0.5ms=0.9\*150ns + 0.1\*t，得t=3.65ms。
 
 （2）(spoc) 有一台假想的计算机，页大小（page size）为32 Bytes，支持32KB的虚拟地址空间（virtual address space）,有4KB的物理内存空间（physical memory），采用二级页表，一个页目录项（page directory entry ，PDE）大小为1 Byte,一个页表项（page-table entries
@@ -229,6 +229,7 @@ int main()
 
 （4）假设你有一台支持[反置页表](http://en.wikipedia.org/wiki/Page_table#Inverted_page_table)的机器，请问你如何设计操作系统支持这种类型计算机？请给出设计方案。
 
+(5)[X86的页面结构](http://os.cs.tsinghua.edu.cn/oscourse/OS2015/lecture06#head-1f58ea81c046bd27b196ea2c366d0a2063b304ab)
 
 --- 
 
