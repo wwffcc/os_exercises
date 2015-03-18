@@ -142,28 +142,21 @@ Virtual Address 748b:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-```
-```
 #define PDBR 0x220  
-
 int pm[1<<12];  
 int* pde=pm+PDBR;  
-  
 int pdeContents(int index)
 {
 	return pde[index];
 }
-
 int pteContents(int index)
 {
 	return pm[index];
 }
-
 int contents(int index)
 {
 	return pm[index];
 }
-
 bool faultPage(FILE* fp,int v)
 {
 	if(!v)
@@ -174,7 +167,6 @@ bool faultPage(FILE* fp,int v)
 	return false;
 	
 }
-
 int main()
 {
 	FILE* fp=fopen("data.txt","r"), *fpx;
