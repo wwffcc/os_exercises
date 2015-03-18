@@ -139,9 +139,9 @@ Virtual Address 748b:
 
 >page.cpp  
 ```
-\#include \<stdio.h\>
-\#include \<stdlib.h\>
-\#include \<string.h\>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 \#define PDBR 0x220
 
@@ -245,7 +245,7 @@ int main()
 	fclose(fpx);
 	return 0;
 }
-
+```
 
 
 （4）假设你有一台支持[反置页表](http://en.wikipedia.org/wiki/Page_table#Inverted_page_table)的机器，请问你如何设计操作系统支持这种类型计算机？请给出设计方案。
