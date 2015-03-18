@@ -185,15 +185,14 @@ int main()
 		}
 	}
 	fclose(fp);
-	
+
 	int vAddr;
 	int pdeCon,pteCon,con;
 	int pdeInd,pteInd,pAddr;
 	int valid,pfn;
-	
-	
+
 	fp=fopen("Vaddress.txt","r");
-	
+
 	fpx=fopen("answer.txt","w");
 	while(true)
 	{
