@@ -165,7 +165,6 @@ bool faultPage(FILE* fp,int v)
 		return true;
 	}
 	return false;
-	
 }
 int main()
 {
