@@ -84,55 +84,55 @@ Virtual Address 7268:
 
 >
 ```
-Virtual Address 6c74:
-  --> pde index:0x1b  pte contents:(valid 1, pfn 0x20)
-    --> pte index:0x3  pte contents:(valid 1, pfn 0x61)
-      --> Translates to Physical Address 0xc34 --> Value: 6
-
-Virtual Address 6b22:
-  --> pde index:0x1a  pte contents:(valid 1, pfn 0x52)
-    --> pte index:0x19  pte contents:(valid 1, pfn 0x47)
-      --> Translates to Physical Address 0x8e2 --> Value: 1a
-
-Virtual Address 3df:
-  --> pde index:0x0  pte contents:(valid 1, pfn 0x5a)
-    --> pte index:0x1e  pte contents:(valid 1, pfn 0x5)
-      --> Translates to Physical Address 0xbf --> Value: f
-
-Virtual Address 69dc:
-  --> pde index:0x1a  pte contents:(valid 1, pfn 0x52)
-    --> pte index:0xe  pte contents:(valid 0, pfn 0x7f)
-      --> Fault (page directory entry not valid
-
-Virtual Address 317a:
-  --> pde index:0xc  pte contents:(valid 1, pfn 0x18)
-    --> pte index:0xb  pte contents:(valid 1, pfn 0x35)
-      --> Translates to Physical Address 0x6ba --> Value: 1e
-
-Virtual Address 4546:
-  --> pde index:0x11  pte contents:(valid 1, pfn 0x21)
-    --> pte index:0xa  pte contents:(valid 0, pfn 0x7f)
-      --> Fault (page directory entry not valid
-
-Virtual Address 2c03:
-  --> pde index:0xb  pte contents:(valid 1, pfn 0x44)
-    --> pte index:0x0  pte contents:(valid 1, pfn 0x57)
-      --> Translates to Physical Address 0xae3 --> Value: 16
-
-Virtual Address 7fd7:
-  --> pde index:0x1f  pte contents:(valid 1, pfn 0x12)
-    --> pte index:0x1e  pte contents:(valid 0, pfn 0x7f)
-      --> Fault (page directory entry not valid
-
-Virtual Address 390e:
-  --> pde index:0xe  pte contents:(valid 0, pfn 0x7f)
-    --> Fault (page directory entry not valid
-
-Virtual Address 748b:
-  --> pde index:0x1d  pte contents:(valid 1, pfn 0x0)
-    --> pte index:0x4  pte contents:(valid 0, pfn 0x7f)
-      --> Fault (page directory entry not valid
-
+Virtual Address 6c74:    
+  --> pde index:0x1b  pte contents:(valid 1, pfn 0x20)  
+    --> pte index:0x3  pte contents:(valid 1, pfn 0x61)  
+      --> Translates to Physical Address 0xc34 --> Value: 6  
+  
+Virtual Address 6b22:  
+  --> pde index:0x1a  pte contents:(valid 1, pfn 0x52)  
+    --> pte index:0x19  pte contents:(valid 1, pfn 0x47)  
+      --> Translates to Physical Address 0x8e2 --> Value: 1a  
+  
+Virtual Address 3df:  
+  --> pde index:0x0  pte contents:(valid 1, pfn 0x5a)  
+    --> pte index:0x1e  pte contents:(valid 1, pfn 0x5)  
+      --> Translates to Physical Address 0xbf --> Value: f  
+  
+Virtual Address 69dc:  
+  --> pde index:0x1a  pte contents:(valid 1, pfn 0x52)  
+    --> pte index:0xe  pte contents:(valid 0, pfn 0x7f)  
+      --> Fault (page directory entry not valid  
+  
+Virtual Address 317a:  
+  --> pde index:0xc  pte contents:(valid 1, pfn 0x18)  
+    --> pte index:0xb  pte contents:(valid 1, pfn 0x35)  
+      --> Translates to Physical Address 0x6ba --> Value: 1e  
+  
+Virtual Address 4546:  
+  --> pde index:0x11  pte contents:(valid 1, pfn 0x21)  
+    --> pte index:0xa  pte contents:(valid 0, pfn 0x7f)  
+      --> Fault (page directory entry not valid  
+  
+Virtual Address 2c03:  
+  --> pde index:0xb  pte contents:(valid 1, pfn 0x44)  
+    --> pte index:0x0  pte contents:(valid 1, pfn 0x57)  
+      --> Translates to Physical Address 0xae3 --> Value: 16  
+  
+Virtual Address 7fd7:  
+  --> pde index:0x1f  pte contents:(valid 1, pfn 0x12)  
+    --> pte index:0x1e  pte contents:(valid 0, pfn 0x7f)  
+      --> Fault (page directory entry not valid  
+  
+Virtual Address 390e:  
+  --> pde index:0xe  pte contents:(valid 0, pfn 0x7f)  
+    --> Fault (page directory entry not valid  
+  
+Virtual Address 748b:  
+  --> pde index:0x1d  pte contents:(valid 1, pfn 0x0)  
+    --> pte index:0x4  pte contents:(valid 0, pfn 0x7f)  
+      --> Fault (page directory entry not valid  
+  
 
   
 
