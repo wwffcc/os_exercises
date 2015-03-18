@@ -185,7 +185,6 @@ int main()
 		}
 	}
 	fclose(fp);
-
 	int vAddr;
 	int pdeCon,pteCon,con;
 	int pdeInd,pteInd,pAddr;
