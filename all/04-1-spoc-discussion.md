@@ -37,6 +37,39 @@ time ./goodlocality
 
 ## 小组思考题目
 ----
+>
+```
+	#include <stdio.h>
+	#define NUM 1024
+	#define COUNT 10
+	int A[NUM][NUM];
+	void main (void) {
+	    int i,j,k;
+		for (k = 0; k<COUNT; k++)
+			for (j = 0; j < NUM; j++)
+				 for (i = 0; i  < NUM; i++)						                                 A[i][j] = i+j;
+		printf("%d count computing over!\n",i*j*k);
+	}
+```
+
+执行情况如下：
+```
+	10485760 count computing over!
+
+	real	0m0.217s
+	user	0m0.212s
+	sys	0m0.004s
+```
+
+而goodlocality的执行情况：
+```
+	10485760 count computing over!
+
+	real	0m0.044s
+	user	0m0.041s
+	sys	0m0.003s
+```
+可见goodlocality的局部性更好。
 
 ### 缺页异常嵌套
 
