@@ -152,6 +152,7 @@ Virtual Address 1e6f(0 001_11 10_011 0_1111):
 ```
 
 >答案：
+
 ```
     Virtual Address 6653:
       --> pde index:0x19  pde contents:(valid 0, pfn 0x7f)
@@ -176,6 +177,7 @@ Virtual Address 1e6f(0 001_11 10_011 0_1111):
         --> pte index:0x13  pte contents:(valid 0, pfn 0x16)
           --> Translates to Disk Sector 0x2cf --> Value: 1c
 ```
+
 
 代码见下：
 ```
