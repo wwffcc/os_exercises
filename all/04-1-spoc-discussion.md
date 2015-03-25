@@ -150,6 +150,173 @@ Virtual Address 1e6f(0 001_11 10_011 0_1111):
       --> To Disk Sector Address 0x2cf(0001011001111) --> Value: 1c
 ```
 
+>答案：
+```
+    Virtual Address 6653:
+      --> pde index:0x19  pde contents:(valid 0, pfn 0x7f)
+        --> Fault (page directory entry not valid
+
+    Virtual Address 1c13:
+      --> pde index:0x7  pde contents:(valid 1, pfn 0x3d)
+        --> pte index:0x0  pte contents:(valid 1, pfn 0x76)
+          --> Translates to Physical Address 0xed3 --> Value: 12
+
+    Virtual Address 6890:
+      --> pde index:0x1a  pde contents:(valid 0, pfn 0x7f)
+        --> Fault (page directory entry not valid
+
+    Virtual Address af6:
+      --> pde index:0x2  pde contents:(valid 1, pfn 0x21)
+        --> pte index:0x17  pte contents:(valid 0, pfn 0x7f)
+          --> Translates to Disk Sector 0xff6 --> Value: 3
+
+    Virtual Address 1e6f:
+      --> pde index:0x7  pde contents:(valid 1, pfn 0x3d)
+        --> pte index:0x13  pte contents:(valid 0, pfn 0x16)
+          --> Translates to Disk Sector 0x2cf --> Value: 1c
+```
+
+代码见下：
+```
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+
+    #define PDBR 0xd80
+
+    int pm[1<<12];
+    int disk[1<<12];
+
+    int* pde=pm+PDBR;
+
+    int pdeContents(int index)
+    {
+	    return pde[index];
+    }
+
+    int pteContents(int index)
+    {
+	    return pm[index];
+    }
+
+    int contents(int index)
+    {
+	    return pm[index];
+    }
+
+    int contents2(int index)
+    {
+	    return disk[index];
+    } 
+
+    bool faultPage(FILE* fp,int v)
+    {
+	    if(!v)
+	    {
+		    fprintf(fp,"--> Fault (page directory entry not valid\n\n");
+		    return true;
+	    }
+	    return false;
+	
+    }
+
+    int main()
+    {
+	    FILE* fp=fopen("memory.txt","r"), *fpx;
+	    char ch[10];
+	    int* pmp=pm;
+	    int s=0;
+	    while(true)
+	    {
+		    if(fscanf(fp,"%s",ch)==EOF)
+			    break;
+		    fscanf(fp,"%s",&ch);
+		    for(int i=0;i<32;i++)
+		    {
+			    fscanf(fp,"%x",pmp+s);
+			    s++;
+		    }
+	    }
+	    fclose(fp);
+	
+	    fp=fopen("disk.txt","r");
+	    pmp=disk;
+	    s=0;
+	    while(true)
+	    {
+		    if(fscanf(fp,"%s",ch)==EOF)
+			    break;
+		    fscanf(fp,"%s",&ch);
+		    for(int i=0;i<32;i++)
+		    {
+			    fscanf(fp,"%x",pmp+s);
+			    s++;
+		    }
+	    }
+	    fclose(fp);
+	
+	    int vAddr;
+	    int pdeCon,pteCon,con;
+	    int pdeInd,pteInd,pAddr;
+	    int valid,pfn;
+	
+	
+	    fp=fopen("vaddr.txt","r");
+	
+	    fpx=fopen("answer.txt","w");
+	    while(true)
+	    {
+		    if(fscanf(fp,"%s",ch)==EOF)
+			    break;
+		    fscanf(fp,"%s",ch);
+		    fscanf(fp,"%x",&vAddr);
+		
+		    pdeInd=(vAddr&0x7c00)>>10;
+		    pteInd=(vAddr&0x3e0)>>5;
+		    pAddr=(vAddr&0x1f);
+		
+		    fprintf(fpx,"Virtual Address %x:\n  ",vAddr);
+		    fprintf(fpx,"--> pde index:0x%x  pde contents:",pdeInd);
+		
+		    pdeCon=pdeContents(pdeInd);
+		    valid=(pdeCon>>7);
+		    pfn=(pdeCon&0x7f);
+		    fprintf(fpx,"(valid %d, pfn 0x%x)\n    ",valid,pfn);
+		
+		    if(!valid)
+	        {
+		        fprintf(fpx,"--> Fault (page directory entry not valid\n\n");
+		        continue;
+	        }
+		
+		    fprintf(fpx,"--> pte index:0x%x  pte contents:",pteInd);
+		
+		    pteInd+=(pfn<<5);
+		
+		    pteCon=pteContents(pteInd);
+		    valid=(pteCon>>7);
+		    pfn=(pteCon&0x7f);
+		    fprintf(fpx,"(valid %d, pfn 0x%x)\n      ",valid,pfn);
+		
+		    if(!valid)
+	        {
+	            pAddr+=(pfn<<5);
+	            fprintf(fpx,"--> Translates to Disk Sector 0x%x ",pAddr);
+		        fprintf(fpx,"--> Value: %x\n\n",contents2(pAddr));
+		        continue;	
+	        }
+		
+		    pAddr+=(pfn<<5);
+		    fprintf(fpx,"--> Translates to Physical Address 0x%x ",pAddr);
+		    fprintf(fpx,"--> Value: %x\n\n",contents(pAddr));	
+	    }
+	
+	    fclose(fp);
+	    fclose(fpx);
+	    return 0;
+    }
+```
+
 ## 扩展思考题
 ---
 (1)请分析原理课的缺页异常的处理流程与lab3中的缺页异常的处理流程（分析粒度到函数级别）的异同之处。
