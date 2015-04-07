@@ -154,9 +154,9 @@ Time     PID: 0     PID: 1
 ```
 
 >解答代码:
+
 ```
     #!/usr/bin/env python
-
     import sys
     from optparse import OptionParser
     import random
