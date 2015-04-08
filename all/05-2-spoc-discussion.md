@@ -127,6 +127,7 @@ Time     PID: 0     PID: 1        CPU        IOs
 >解答代码：我认为CPU的执行必须从ready态到cpu态，其他状态必须先进入ready态，才能再执行
 ```
     #! /usr/bin/env python
+    
     import sys
     from optparse import OptionParser
     import random
