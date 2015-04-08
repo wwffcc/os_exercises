@@ -445,3 +445,25 @@ Time     PID: 0     PID: 1        CPU        IOs
     print ''
 
 ```
+运行结果：
+```
+    Time     PID: 0     PID: 1        CPU        IOs 
+      1      RUN:io      READY          1            
+      2     WAITING    RUN:yld          1          1 
+      3     WAITING     RUN:io          1          1 
+      4     WAITING    WAITING                     2 
+      5       READY    WAITING                     1 
+      6      RUN:io    WAITING          1          1 
+      7     WAITING      READY                     1 
+      8     WAITING    RUN:yld          1          1 
+      9     WAITING    RUN:yld          1          1 
+     10       READY    RUN:yld          1            
+     11     RUN:yld      READY          1            
+     12     RUN:cpu       DONE          1            
+     13     RUN:yld       DONE          1            
+
+    Stats: Total Time 13
+    Stats: CPU Busy 10 (76.92%)
+    Stats: IO Busy  8 (61.54%)
+
+```
