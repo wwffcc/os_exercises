@@ -7,13 +7,16 @@
 ### 总体介绍
 
 (1) ucore的线程控制块数据结构是什么？
-> proc_struct </br>
+> proc_struct 
+</br>
 ### 关键数据结构
 
 (2) 如何知道ucore的两个线程同在一个进程？
-> 看parent是否是同一个。</br>
+> 看parent是否是同一个。
+</br>
 (3) context和trapframe分别在什么时候用到？
-> 进程切换时使用。</br>
+> 进程切换时使用。
+</br>
 (4) 用户态或内核态下的中断处理有什么区别？在trapframe中有什么体现？
 
 ### 执行流程
@@ -24,12 +27,14 @@ tf.tf_eip = (uint32_t) kernel_thread_entry;
 /kern-ucore/arch/i386/init/entry.S
 /kern/process/entry.S
 ```
-> pushl %edx </br>
+> pushl %edx 
+</br>
 (6)内核线程的堆栈初始化在哪？
 ```
 tf和context中的esp
 ```
-> setup_kstack </br>
+> setup_kstack 
+</br>
 (7)fork()父子进程的返回值是不同的。这在源代码中的体现中哪？
 
 (8)内核线程initproc的第一次执行流程是什么样的？能跟踪出来吗？
