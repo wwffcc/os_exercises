@@ -12,8 +12,10 @@
 
 (2) 如何知道ucore的两个线程同在一个进程？
 > 看parent是否是同一个。  
+
 (3) context和trapframe分别在什么时候用到？
 > 进程切换时使用。  
+
 (4) 用户态或内核态下的中断处理有什么区别？在trapframe中有什么体现？
 
 ### 执行流程
@@ -25,11 +27,13 @@ tf.tf_eip = (uint32_t) kernel_thread_entry;
 /kern/process/entry.S
 ```
 > pushl %edx   
+
 (6)内核线程的堆栈初始化在哪？
 ```
 tf和context中的esp
 ```
 > setup_kstack   
+
 (7)fork()父子进程的返回值是不同的。这在源代码中的体现中哪？
 
 (8)内核线程initproc的第一次执行流程是什么样的？能跟踪出来吗？
