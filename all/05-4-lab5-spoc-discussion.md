@@ -45,6 +45,9 @@
 https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-boot-with-grub2-in-udisk.md
 
 (报告可课后完成)请理解grub multiboot spec的含义，并分析ucore_lab是如何实现符合grub multiboot spec的，并形成spoc练习报告。
+>
+完成报告：</br>
+按照网址说明的步骤，首先插入U盘，用df命令查看U盘ID，再用sudo su切换到最高权限，对U盘进行格式化，创建一个分区。然后在U盘上安装grub2,这时候在U盘根目录出现/boot/grub/目录，在此目录下创建配置文件grub.cfg。接下来，编译ucore，利用make mboot，产生了bin/grub_kernel,将此执行文件放到/boot下。重启机器，选择U盘启动，就发现可以正常使用ucore操作系统了。
 
 ### (2)(spoc) 理解用户程的生命周期。
 
