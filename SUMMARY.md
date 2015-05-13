@@ -33,5 +33,6 @@
 * [信号量](all/10-sem.md)
 * [死锁和进程间通信](all/11-deadlock.md)
 * [文件系统](all/12-filesystem.md)
+    * [lec21 SPOC讨论](all/09-1-spoc-discussion.md)
 * [I/O子系统](all/13-io.md)
 
