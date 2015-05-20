@@ -39,5 +39,27 @@
 
 ## 小组思考题
  - (spoc)完成磁盘访问与磁盘寻道算法的作业，具体帮助和要求信息请看[disksim指导信息](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab8/disksim-homework.md)和[disksim参考代码](https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab8/disksim-homework.py)
+> SCAN:
+</br>
+```
+Block:  10  Seek:  0  Rotate:105  Transfer: 30  Total: 135
+Block:  11  Seek:  0  Rotate:  0  Transfer: 30  Total:  30
+Block:   1  Seek:  0  Rotate: 30  Transfer: 30  Total:  60
+Block:  12  Seek: 40  Rotate:260  Transfer: 30  Total: 330
+Block:  13  Seek:  0  Rotate:  0  Transfer: 30  Total:  30
+Block:  24  Seek: 40  Rotate:260  Transfer: 30  Total: 330
 
+TOTALS      Seek: 80  Rotate:655  Transfer:180  Total: 915
+```
+C-SCAN:
+</br>
+```
+Block:  10  Seek:  0  Rotate:105  Transfer: 30  Total: 135
+Block:  11  Seek:  0  Rotate:  0  Transfer: 30  Total:  30
+Block:   1  Seek:  0  Rotate: 30  Transfer: 30  Total:  60
+Block:  12  Seek: 40  Rotate:260  Transfer: 30  Total: 330
+Block:  13  Seek:  0  Rotate:  0  Transfer: 30  Total:  30
+Block:  24  Seek: 40  Rotate:260  Transfer: 30  Total: 330
 
+TOTALS      Seek: 80  Rotate:655  Transfer:180  Total: 915
+```
